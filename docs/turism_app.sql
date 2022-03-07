@@ -19,7 +19,7 @@ USE `TurismApp` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `TurismApp`.`usuario_app` (
   `idUsuario` INT NOT NULL,
-  `nombreUsuario` VARCHAR(20) NULL,
+  `nombreUsuario` VARCHAR(20) NOT NULL,
   `nombre` VARCHAR(50) NOT NULL,
   `fechaNacimiento` DATE NOT NULL,
   `correo` VARCHAR(100) NOT NULL,
@@ -28,8 +28,7 @@ CREATE TABLE IF NOT EXISTS `TurismApp`.`usuario_app` (
   `imagenUsuario` BLOB NULL,
   `thumbnailImagen` BLOB NULL,
   `claveAcceso` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idUsuario`),
-  UNIQUE INDEX `idUsuario_UNIQUE` (`idUsuario` ASC) VISIBLE)
+  PRIMARY KEY (`idUsuario`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_spanish_ci;
