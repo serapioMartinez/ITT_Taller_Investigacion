@@ -5,19 +5,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema Tipos_Usuario
+-- Schema TurismApp
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema Tipos_Usuario
+-- Schema TurismApp
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `Tipos_Usuario` ;
-USE `Tipos_Usuario` ;
+CREATE SCHEMA IF NOT EXISTS `TurismApp` ;
+USE `TurismApp` ;
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`usuario_app`
+-- Table `TurismApp`.`usuario_app`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`usuario_app` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`usuario_app` (
   `idUsuario` INT NOT NULL,
   `nombreUsuario` VARCHAR(20) NULL,
   `nombre` VARCHAR(50) NOT NULL,
@@ -36,9 +36,9 @@ COLLATE = utf8_spanish_ci;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`establecimientos`
+-- Table `TurismApp`.`establecimientos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`establecimientos` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`establecimientos` (
   `idEstablecimiento` INT NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(40) NULL,
   `tipoEstablecimiento` VARCHAR(2) NULL,
@@ -53,9 +53,9 @@ COLLATE = utf8_spanish_ci;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`administrador_ciudad`
+-- Table `TurismApp`.`administrador_ciudad`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`administrador_ciudad` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`administrador_ciudad` (
   `idUsuario` INT NOT NULL,
   `nombreUsuario` VARCHAR(20) NULL,
   `nombre` VARCHAR(50) NOT NULL,
@@ -72,9 +72,9 @@ COLLATE = utf8_spanish_ci;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`ciudades`
+-- Table `TurismApp`.`ciudades`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`ciudades` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`ciudades` (
   `idCiudad` INT NOT NULL AUTO_INCREMENT,
   `_id_administrador` INT NOT NULL,
   `nombreCiudad` VARCHAR(100) NOT NULL,
@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`ciudades` (
   INDEX `fk_Ciudad_AdministradorCiudad1_idx` (`_id_administrador` ASC) VISIBLE,
   CONSTRAINT `fk_Ciudad_AdministradorCiudad1`
     FOREIGN KEY (`_id_administrador`)
-    REFERENCES `Tipos_Usuario`.`administrador_ciudad` (`idUsuario`)
+    REFERENCES `TurismApp`.`administrador_ciudad` (`idUsuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -101,9 +101,9 @@ COLLATE = utf8_spanish_ci;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`tipos_turismo`
+-- Table `TurismApp`.`tipos_turismo`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`tipos_turismo` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`tipos_turismo` (
   `idTiposTurismo` VARCHAR(2) NOT NULL,
   `tipoTurismo` VARCHAR(20) NULL,
   PRIMARY KEY (`idTiposTurismo`),
@@ -114,9 +114,9 @@ COLLATE = utf8_spanish_ci;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`direccion`
+-- Table `TurismApp`.`direccion`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`direccion` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`direccion` (
   `idDireccion` INT NOT NULL AUTO_INCREMENT,
   `_idEstablecimiento` INT NOT NULL,
   `colonia` VARCHAR(50) NOT NULL,
@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`direccion` (
   INDEX `fk_Direccion_Establecimiento_idx` (`_idEstablecimiento` ASC) VISIBLE,
   CONSTRAINT `fk_Direccion_Establecimiento`
     FOREIGN KEY (`_idEstablecimiento`)
-    REFERENCES `Tipos_Usuario`.`establecimientos` (`idEstablecimiento`)
+    REFERENCES `TurismApp`.`establecimientos` (`idEstablecimiento`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -135,9 +135,9 @@ COLLATE = utf8_spanish_ci;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`administrador_establecimiento`
+-- Table `TurismApp`.`administrador_establecimiento`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`administrador_establecimiento` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`administrador_establecimiento` (
   `idUsuario` INT NOT NULL,
   `claveAcceso` VARCHAR(45) NOT NULL,
   `nombreUsuario` VARCHAR(20) NULL,
@@ -154,9 +154,9 @@ COLLATE = utf8_spanish_ci;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`establecimiento_pro`
+-- Table `TurismApp`.`establecimiento_pro`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`establecimiento_pro` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`establecimiento_pro` (
   `_idEstablecimiento` INT NOT NULL,
   `_idAdministrador` INT NOT NULL,
   `calificacion` TINYINT(1) NOT NULL DEFAULT 0,
@@ -169,21 +169,21 @@ CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`establecimiento_pro` (
   INDEX `fk_EstablecimientoPro_UsuarioEstablecimiento1_idx` (`_idAdministrador` ASC) VISIBLE,
   CONSTRAINT `fk_EstablecimientoPro_Establecimiento1`
     FOREIGN KEY (`_idEstablecimiento`)
-    REFERENCES `Tipos_Usuario`.`establecimientos` (`idEstablecimiento`)
+    REFERENCES `TurismApp`.`establecimientos` (`idEstablecimiento`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_EstablecimientoPro_UsuarioEstablecimiento1`
     FOREIGN KEY (`_idAdministrador`)
-    REFERENCES `Tipos_Usuario`.`administrador_establecimiento` (`idUsuario`)
+    REFERENCES `TurismApp`.`administrador_establecimiento` (`idUsuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`horario_atencion`
+-- Table `TurismApp`.`horario_atencion`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`horario_atencion` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`horario_atencion` (
   `idHorarioAtencion` INT NOT NULL AUTO_INCREMENT,
   `_idEstablecimiento` INT NOT NULL,
   `lunes` VARCHAR(10) NOT NULL DEFAULT 'S/A',
@@ -197,16 +197,16 @@ CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`horario_atencion` (
   INDEX `fk_HorarioAtencion_EstablecimientoPro1_idx` (`_idEstablecimiento` ASC) VISIBLE,
   CONSTRAINT `fk_HorarioAtencion_EstablecimientoPro1`
     FOREIGN KEY (`_idEstablecimiento`)
-    REFERENCES `Tipos_Usuario`.`establecimiento_pro` (`_idEstablecimiento`)
+    REFERENCES `TurismApp`.`establecimiento_pro` (`_idEstablecimiento`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`resenhas_establecimiento`
+-- Table `TurismApp`.`resenhas_establecimiento`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`resenhas_establecimiento` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`resenhas_establecimiento` (
   `idResenha` INT NOT NULL AUTO_INCREMENT,
   `_idEstablecimiento` INT NOT NULL,
   `_idUsuario` INT NOT NULL,
@@ -216,12 +216,12 @@ CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`resenhas_establecimiento` (
   INDEX `fk_Reseñas_Usuario1_idx` (`_idUsuario` ASC) VISIBLE,
   CONSTRAINT `fk_Reseñas_EstablecimientoPro1`
     FOREIGN KEY (`_idEstablecimiento`)
-    REFERENCES `Tipos_Usuario`.`establecimiento_pro` (`_idEstablecimiento`)
+    REFERENCES `TurismApp`.`establecimiento_pro` (`_idEstablecimiento`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Reseñas_Usuario1`
     FOREIGN KEY (`_idUsuario`)
-    REFERENCES `Tipos_Usuario`.`usuario_app` (`idUsuario`)
+    REFERENCES `TurismApp`.`usuario_app` (`idUsuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -230,9 +230,9 @@ COLLATE = utf8_spanish_ci;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`festividad`
+-- Table `TurismApp`.`festividad`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`festividad` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`festividad` (
   `idFecha` INT NOT NULL AUTO_INCREMENT,
   `_idCiudad` INT NOT NULL,
   `dia` TINYINT(2) NOT NULL,
@@ -244,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`festividad` (
   INDEX `fk_FechasImportantes_Ciudad1_idx` (`_idCiudad` ASC) VISIBLE,
   CONSTRAINT `fk_FechasImportantes_Ciudad1`
     FOREIGN KEY (`_idCiudad`)
-    REFERENCES `Tipos_Usuario`.`ciudades` (`idCiudad`)
+    REFERENCES `TurismApp`.`ciudades` (`idCiudad`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -253,9 +253,9 @@ COLLATE = utf8_spanish_ci;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`resenhas_ciudad`
+-- Table `TurismApp`.`resenhas_ciudad`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`resenhas_ciudad` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`resenhas_ciudad` (
   `idResenhasCiudad` INT NOT NULL AUTO_INCREMENT,
   `_idCiudad` INT NOT NULL,
   `_idUsuario` INT NOT NULL,
@@ -265,12 +265,12 @@ CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`resenhas_ciudad` (
   INDEX `fk_ReseñasCiudad_Usuario1_idx` (`_idUsuario` ASC) VISIBLE,
   CONSTRAINT `fk_ReseñasCiudad_Ciudad1`
     FOREIGN KEY (`_idCiudad`)
-    REFERENCES `Tipos_Usuario`.`ciudades` (`idCiudad`)
+    REFERENCES `TurismApp`.`ciudades` (`idCiudad`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ReseñasCiudad_Usuario1`
     FOREIGN KEY (`_idUsuario`)
-    REFERENCES `Tipos_Usuario`.`usuario_app` (`idUsuario`)
+    REFERENCES `TurismApp`.`usuario_app` (`idUsuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -279,9 +279,9 @@ COLLATE = utf8_spanish_ci;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`fotos_ciudad`
+-- Table `TurismApp`.`fotos_ciudad`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`fotos_ciudad` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`fotos_ciudad` (
   `idFoto` INT NOT NULL AUTO_INCREMENT,
   `descripcion` VARCHAR(45) NOT NULL,
   `foto` BLOB NOT NULL,
@@ -290,7 +290,7 @@ CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`fotos_ciudad` (
   INDEX `fk_FotosCiudad_Ciudad1_idx` (`_idCiudad` ASC) VISIBLE,
   CONSTRAINT `fk_FotosCiudad_Ciudad1`
     FOREIGN KEY (`_idCiudad`)
-    REFERENCES `Tipos_Usuario`.`ciudades` (`idCiudad`)
+    REFERENCES `TurismApp`.`ciudades` (`idCiudad`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -299,9 +299,9 @@ COLLATE = utf8_spanish_ci;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`personajes_importantes`
+-- Table `TurismApp`.`personajes_importantes`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`personajes_importantes` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`personajes_importantes` (
   `idPersonajes` INT NOT NULL AUTO_INCREMENT,
   `_idCiudad` INT NOT NULL,
   `nombre` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_spanish_ci' NULL,
@@ -313,7 +313,7 @@ CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`personajes_importantes` (
   INDEX `fk_PersonajesImportantes_Ciudad1_idx` (`_idCiudad` ASC) VISIBLE,
   CONSTRAINT `fk_PersonajesImportantes_Ciudad1`
     FOREIGN KEY (`_idCiudad`)
-    REFERENCES `Tipos_Usuario`.`ciudades` (`idCiudad`)
+    REFERENCES `TurismApp`.`ciudades` (`idCiudad`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -322,9 +322,9 @@ COLLATE = utf8_spanish_ci;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`platillos`
+-- Table `TurismApp`.`platillos`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`platillos` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`platillos` (
   `idPlatillos` INT NOT NULL AUTO_INCREMENT,
   `_idCiudad` INT NOT NULL,
   `nombre` VARCHAR(45) NOT NULL,
@@ -334,7 +334,7 @@ CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`platillos` (
   INDEX `fk_Platillos_Ciudad1_idx` (`_idCiudad` ASC) VISIBLE,
   CONSTRAINT `fk_Platillos_Ciudad1`
     FOREIGN KEY (`_idCiudad`)
-    REFERENCES `Tipos_Usuario`.`ciudades` (`idCiudad`)
+    REFERENCES `TurismApp`.`ciudades` (`idCiudad`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -342,11 +342,10 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_spanish_ci;
 
 
-
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`entradas_usuario_agenda`
+-- Table `TurismApp`.`entradas_usuario_agenda`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`entradas_usuario_agenda` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`entradas_usuario_agenda` (
   `idEntrada` INT NOT NULL AUTO_INCREMENT,
   `_idUsuario` INT NOT NULL,
   `_idCiudad` INT NOT NULL,
@@ -359,26 +358,26 @@ CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`entradas_usuario_agenda` (
   INDEX `fk_UsuarioPorVisitarCiudad_EstablecimientoPro1_idx` (`_idTransporte` ASC) VISIBLE,
   CONSTRAINT `fk_Usuario_has_Ciudad_Usuario1`
     FOREIGN KEY (`_idUsuario`)
-    REFERENCES `Tipos_Usuario`.`usuario_app` (`idUsuario`)
+    REFERENCES `TurismApp`.`usuario_app` (`idUsuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Usuario_has_Ciudad_Ciudad1`
     FOREIGN KEY (`_idCiudad`)
-    REFERENCES `Tipos_Usuario`.`ciudades` (`idCiudad`)
+    REFERENCES `TurismApp`.`ciudades` (`idCiudad`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_UsuarioPorVisitarCiudad_EstablecimientoPro1`
     FOREIGN KEY (`_idTransporte`)
-    REFERENCES `Tipos_Usuario`.`establecimiento_pro` (`_idEstablecimiento`)
+    REFERENCES `TurismApp`.`establecimiento_pro` (`_idEstablecimiento`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`tipo_turismo_ciudad`
+-- Table `TurismApp`.`tipo_turismo_ciudad`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`tipo_turismo_ciudad` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`tipo_turismo_ciudad` (
   `_idCiudad` INT NOT NULL,
   `_idTiposTurismo` VARCHAR(2) NOT NULL,
   PRIMARY KEY (`_idCiudad`, `_idTiposTurismo`),
@@ -386,12 +385,12 @@ CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`tipo_turismo_ciudad` (
   INDEX `fk_Ciudad_has_TiposTurismo_Ciudad1_idx` (`_idCiudad` ASC) VISIBLE,
   CONSTRAINT `fk_Ciudad_has_TiposTurismo_Ciudad1`
     FOREIGN KEY (`_idCiudad`)
-    REFERENCES `Tipos_Usuario`.`ciudades` (`idCiudad`)
+    REFERENCES `TurismApp`.`ciudades` (`idCiudad`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Ciudad_has_TiposTurismo_TiposTurismo1`
     FOREIGN KEY (`_idTiposTurismo`)
-    REFERENCES `Tipos_Usuario`.`tipos_turismo` (`idTiposTurismo`)
+    REFERENCES `TurismApp`.`tipos_turismo` (`idTiposTurismo`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -400,9 +399,9 @@ COLLATE = utf8_spanish_ci;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`salidas_transporte`
+-- Table `TurismApp`.`salidas_transporte`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`salidas_transporte` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`salidas_transporte` (
   `idSalidasTransporte` INT NOT NULL AUTO_INCREMENT,
   `_idTransporte` INT NOT NULL,
   `_idCiudadDestino` INT NOT NULL,
@@ -414,21 +413,21 @@ CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`salidas_transporte` (
   INDEX `fk_SalidasTransporte_Ciudad1_idx` (`_idCiudadDestino` ASC) VISIBLE,
   CONSTRAINT `fk_SalidasTransporte_EstablecimientoPro1`
     FOREIGN KEY (`_idTransporte`)
-    REFERENCES `Tipos_Usuario`.`establecimiento_pro` (`_idEstablecimiento`)
+    REFERENCES `TurismApp`.`establecimiento_pro` (`_idEstablecimiento`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_SalidasTransporte_Ciudad1`
     FOREIGN KEY (`_idCiudadDestino`)
-    REFERENCES `Tipos_Usuario`.`ciudades` (`idCiudad`)
+    REFERENCES `TurismApp`.`ciudades` (`idCiudad`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`usuarios`
+-- Table `TurismApp`.`usuarios`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`usuarios` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`usuarios` (
   `idUsuario` INT NOT NULL AUTO_INCREMENT,
   `tipoUsuario` VARCHAR(2) NOT NULL DEFAULT 'UA',
   PRIMARY KEY (`idUsuario`))
@@ -436,9 +435,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`notas_ciudad`
+-- Table `TurismApp`.`notas_ciudad`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`notas_ciudad` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`notas_ciudad` (
   `idNotaCiudad` INT NOT NULL AUTO_INCREMENT,
   `_idCiudad` INT NOT NULL,
   `titulo` VARCHAR(45) NOT NULL,
@@ -447,7 +446,7 @@ CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`notas_ciudad` (
   INDEX `fk_NotasCiudad_Ciudad1_idx` (`_idCiudad` ASC) VISIBLE,
   CONSTRAINT `fk_NotasCiudad_Ciudad1`
     FOREIGN KEY (`_idCiudad`)
-    REFERENCES `Tipos_Usuario`.`ciudades` (`idCiudad`)
+    REFERENCES `TurismApp`.`ciudades` (`idCiudad`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -456,9 +455,9 @@ COLLATE = utf8_spanish_ci;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`zonas_turisticas`
+-- Table `TurismApp`.`zonas_turisticas`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`zonas_turisticas` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`zonas_turisticas` (
   `idZonaTuristica` INT NOT NULL AUTO_INCREMENT,
   `_idCiudad` INT NOT NULL,
   `nombre` VARCHAR(50) NOT NULL,
@@ -469,7 +468,7 @@ CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`zonas_turisticas` (
   INDEX `fk_zonas_turisticas_ciudades1_idx` (`_idCiudad` ASC) VISIBLE,
   CONSTRAINT `fk_zonas_turisticas_ciudades1`
     FOREIGN KEY (`_idCiudad`)
-    REFERENCES `Tipos_Usuario`.`ciudades` (`idCiudad`)
+    REFERENCES `TurismApp`.`ciudades` (`idCiudad`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -478,9 +477,9 @@ COLLATE = utf8_spanish_ci;
 
 
 -- -----------------------------------------------------
--- Table `Tipos_Usuario`.`origen_transporte`
+-- Table `TurismApp`.`origen_transporte`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`origen_transporte` (
+CREATE TABLE IF NOT EXISTS `TurismApp`.`origen_transporte` (
   `identificador` INT NOT NULL AUTO_INCREMENT,
   `_idCiudad` INT NOT NULL,
   `_idTransporte` INT NOT NULL,
@@ -489,12 +488,12 @@ CREATE TABLE IF NOT EXISTS `Tipos_Usuario`.`origen_transporte` (
   INDEX `fk_ciudades_has_establecimiento_pro_ciudades1_idx` (`_idCiudad` ASC) VISIBLE,
   CONSTRAINT `fk_ciudades_has_establecimiento_pro_ciudades1`
     FOREIGN KEY (`_idCiudad`)
-    REFERENCES `Tipos_Usuario`.`ciudades` (`idCiudad`)
+    REFERENCES `TurismApp`.`ciudades` (`idCiudad`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_ciudades_has_establecimiento_pro_establecimiento_pro1`
     FOREIGN KEY (`_idTransporte`)
-    REFERENCES `Tipos_Usuario`.`establecimiento_pro` (`_idEstablecimiento`)
+    REFERENCES `TurismApp`.`establecimiento_pro` (`_idEstablecimiento`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
